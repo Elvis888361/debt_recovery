@@ -1,0 +1,67 @@
+{
+ "doctype": "Dashboard",
+ "name": "Debt Recovery",
+ "dashboard_name": "Debt Recovery",
+ "module": "Debt Recovery",
+ "is_standard": 1,
+ "cards": [
+  {
+   "card": "Debt Active Cases"
+  },
+  {
+   "card": "Debt Total Entrusted"
+  },
+  {
+   "card": "Debt Collected"
+  },
+  {
+   "card": "Debt Outstanding"
+  },
+  {
+   "card": "Debt Our Commission"
+  },
+  {
+   "card": "Debt We Owe Clients"
+  },
+  {
+   "card": "Debt Police Cases"
+  },
+  {
+   "card": "Debt New Cases"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Debt Collections per Month",
+   "width": "Full"
+  },
+  {
+   "chart": "Debt Cases by Status",
+   "width": "Half"
+  },
+  {
+   "chart": "Debt Cases Acquired per Month",
+   "width": "Half"
+  },
+  {
+   "chart": "Debt Collected by Client",
+   "width": "Half"
+  },
+  {
+   "chart": "Debt Outstanding by Client",
+   "width": "Half"
+  },
+  {
+   "chart": "Debt Commission by Client",
+   "width": "Half"
+  },
+  {
+   "chart": "Debt Police Cases by Station",
+   "width": "Half"
+  },
+  {
+   "chart": "Debt Paid to Clients per Month",
+   "width": "Full"
+  }
+ ]
+}

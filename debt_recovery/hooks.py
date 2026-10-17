@@ -256,3 +256,15 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+
+add_to_apps_screen = [
+	{
+		"name": "debt_recovery",
+		"logo": "/assets/frappe/images/frappe-framework-logo.svg",
+		"title": "Debt Recovery",
+		"route": "/app/debt-recovery",
+	}
+]
+
+after_install = "debt_recovery.setup.ensure_roles"
+after_migrate = "debt_recovery.setup.ensure_roles"

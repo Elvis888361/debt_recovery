@@ -1,0 +1,772 @@
+{
+ "name": "Debtor Case",
+ "autoname": "CM-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "sort_field": "debt_balance_amount",
+ "sort_order": "DESC",
+ "search_fields": "debtor_name,debtor_cpr,police_case_number,client,account_no",
+ "track_changes": 1,
+ "allow_import": 1,
+ "quick_entry": 0,
+ "track_seen": 0,
+ "fields": [
+  {
+   "fieldname": "tab_summary",
+   "fieldtype": "Tab Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "summary_html",
+   "fieldtype": "HTML",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "tab_case",
+   "fieldtype": "Tab Break",
+   "label": "Case Details"
+  },
+  {
+   "fieldname": "case_type",
+   "fieldtype": "Select",
+   "label": "Case Type",
+   "options": "Amicable\nPolice Station\nProsecution",
+   "default": "Amicable",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nUnder Tracing\nPromise to Pay\nPayment Plan\nSettled\nReturned to Client\nClosed",
+   "default": "Open",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "internal_status",
+   "fieldtype": "Select",
+   "label": "Internal Status",
+   "options": "Open\nIn Progress\nEscalated\nOn Hold\nClosed",
+   "default": "Open",
+   "description": "Our own working status; the Status above is what the client sees."
+  },
+  {
+   "fieldname": "acquired_date",
+   "fieldtype": "Date",
+   "label": "Booking Date",
+   "default": "Today"
+  },
+  {
+   "fieldname": "aging_date",
+   "fieldtype": "Date",
+   "label": "Aging Date"
+  },
+  {
+   "fieldname": "debt_total_amount",
+   "fieldtype": "Float",
+   "label": "Claim Amount",
+   "reqd": 1,
+   "in_list_view": 1,
+   "precision": "3"
+  },
+  {
+   "fieldname": "total_claim_amount",
+   "fieldtype": "Float",
+   "label": "Total Claim Amount",
+   "read_only": 1,
+   "description": "Claim Amount plus the payment amount from the file that imported this case. Written by Collection Import only.",
+   "precision": "3"
+  },
+  {
+   "fieldname": "debt_collected_amount",
+   "fieldtype": "Float",
+   "label": "Total Payment",
+   "read_only": 1,
+   "in_list_view": 1,
+   "precision": "3"
+  },
+  {
+   "fieldname": "cb_case",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "collector",
+   "fieldtype": "Link",
+   "label": "Agent",
+   "options": "Sales Person",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "debt_currency",
+   "fieldtype": "Link",
+   "label": "Debt Currency",
+   "options": "Currency",
+   "default": "BHD"
+  },
+  {
+   "fieldname": "discount_percentage",
+   "fieldtype": "Float",
+   "label": "Discount Percentage",
+   "precision": "3"
+  },
+  {
+   "fieldname": "discount_amount",
+   "fieldtype": "Float",
+   "label": "Discount Amount",
+   "precision": "3"
+  },
+  {
+   "fieldname": "debt_adjustment_amount",
+   "fieldtype": "Float",
+   "label": "Adjustment Amount",
+   "default": "0",
+   "precision": "3"
+  },
+  {
+   "fieldname": "interest_judgment_amount",
+   "fieldtype": "Float",
+   "label": "Interest / Judgment Amount",
+   "default": "0",
+   "description": "Interest or court-judgment amount added on top of the claim.",
+   "precision": "3"
+  },
+  {
+   "fieldname": "debt_balance_amount",
+   "fieldtype": "Float",
+   "label": "Balance",
+   "read_only": 1,
+   "bold": 1,
+   "in_list_view": 1,
+   "precision": "3"
+  },
+  {
+   "fieldname": "sec_cases",
+   "fieldtype": "Section Break",
+   "label": "Debtor Cases"
+  },
+  {
+   "fieldname": "debtor_cases_html",
+   "fieldtype": "HTML",
+   "label": "Debtor Cases"
+  },
+  {
+   "fieldname": "sec_police",
+   "fieldtype": "Section Break",
+   "label": "Police Station / Legal"
+  },
+  {
+   "fieldname": "police_case_number",
+   "fieldtype": "Data",
+   "label": "Police Case No",
+   "in_global_search": 1
+  },
+  {
+   "fieldname": "police_case_date",
+   "fieldtype": "Date",
+   "label": "Police Case Date"
+  },
+  {
+   "fieldname": "police_registered_by",
+   "fieldtype": "Data",
+   "label": "Registered By"
+  },
+  {
+   "fieldname": "prosecution_case_number",
+   "fieldtype": "Data",
+   "label": "Prosecution Case Number"
+  },
+  {
+   "fieldname": "police_station_name",
+   "fieldtype": "Data",
+   "label": "Police Station Name"
+  },
+  {
+   "fieldname": "police_station_status",
+   "fieldtype": "Select",
+   "label": "Police Station Status",
+   "options": "\nFiled\nUnder Investigation\nWith Prosecution\nCourt\nClosed"
+  },
+  {
+   "fieldname": "cb_police",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sec_fees",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "legal_fees",
+   "fieldtype": "Table",
+   "label": "Legal Fees",
+   "options": "Debt Legal Fee"
+  },
+  {
+   "fieldname": "tab_debtor",
+   "fieldtype": "Tab Break",
+   "label": "Debtor Details"
+  },
+  {
+   "fieldname": "debtor",
+   "fieldtype": "Link",
+   "label": "Debtor",
+   "options": "Debtor",
+   "reqd": 1
+  },
+  {
+   "fieldname": "debtor_name",
+   "fieldtype": "Data",
+   "label": "Debtor Name",
+   "read_only": 1,
+   "fetch_from": "debtor.debtor_name",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "in_global_search": 1
+  },
+  {
+   "fieldname": "debtor_cpr",
+   "fieldtype": "Data",
+   "label": "CPR",
+   "read_only": 1,
+   "fetch_from": "debtor.cpr",
+   "in_standard_filter": 1,
+   "in_global_search": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "debtor_status",
+   "fieldtype": "Data",
+   "label": "Debtor Status",
+   "read_only": 1,
+   "fetch_from": "debtor.debtor_status"
+  },
+  {
+   "fieldname": "expat_visa_status",
+   "fieldtype": "Data",
+   "label": "Expat Visa Status",
+   "read_only": 1,
+   "fetch_from": "debtor.expat_visa_status"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Data",
+   "label": "Nationality",
+   "read_only": 1,
+   "fetch_from": "debtor.nationality"
+  },
+  {
+   "fieldname": "cb_debtor",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "debtor_type",
+   "fieldtype": "Data",
+   "label": "Debtor Type",
+   "read_only": 1,
+   "fetch_from": "debtor.debtor_type"
+  },
+  {
+   "fieldname": "debtor_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "default": "Today"
+  },
+  {
+   "fieldname": "contract",
+   "fieldtype": "Link",
+   "label": "Contract",
+   "options": "Contract"
+  },
+  {
+   "fieldname": "sec_other_contacts",
+   "fieldtype": "Section Break",
+   "label": "Other Contact Details"
+  },
+  {
+   "fieldname": "debtor_info",
+   "fieldtype": "Table",
+   "label": "Other Contacts",
+   "options": "Debt Contact Info"
+  },
+  {
+   "fieldname": "tab_more",
+   "fieldtype": "Tab Break",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "msisdn",
+   "fieldtype": "Data",
+   "label": "MSISDN",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "account_no",
+   "fieldtype": "Data",
+   "label": "Account No",
+   "in_global_search": 1
+  },
+  {
+   "fieldname": "debt_product_key",
+   "fieldtype": "Data",
+   "label": "Debt Product Key"
+  },
+  {
+   "fieldname": "san_status",
+   "fieldtype": "Data",
+   "label": "San Status"
+  },
+  {
+   "fieldname": "aging",
+   "fieldtype": "Data",
+   "label": "Aging"
+  },
+  {
+   "fieldname": "device",
+   "fieldtype": "Data",
+   "label": "Device"
+  },
+  {
+   "fieldname": "plan",
+   "fieldtype": "Data",
+   "label": "Plan"
+  },
+  {
+   "fieldname": "plan_type",
+   "fieldtype": "Data",
+   "label": "Plan Type"
+  },
+  {
+   "fieldname": "account_deactivation_date",
+   "fieldtype": "Data",
+   "label": "Account Deactivation Date"
+  },
+  {
+   "fieldname": "debt_details",
+   "fieldtype": "Small Text",
+   "label": "Debt Details"
+  },
+  {
+   "fieldname": "cb_more",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "individual_ban",
+   "fieldtype": "Data",
+   "label": "Individual Ban",
+   "in_standard_filter": 1,
+   "in_global_search": 1
+  },
+  {
+   "fieldname": "next_followup_date",
+   "fieldtype": "Date",
+   "label": "Next Follow Up Date",
+   "hidden": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "legal_eligibility",
+   "fieldtype": "Data",
+   "label": "Legal Eligibility"
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "label": "Client",
+   "options": "Recovery Client",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "closing_date",
+   "fieldtype": "Date",
+   "label": "Closing Date"
+  },
+  {
+   "fieldname": "discount_rate",
+   "fieldtype": "Float",
+   "label": "Discount Rate",
+   "precision": "3"
+  },
+  {
+   "fieldname": "discount_amount_0",
+   "fieldtype": "Float",
+   "label": "Discount Amount 0",
+   "precision": "3"
+  },
+  {
+   "fieldname": "main_status",
+   "fieldtype": "Select",
+   "label": "Main Status",
+   "options": "\nUnder Follow Up\nPromise to Pay\nPartial Payment\nTracing Done 1\nTracing Done Without Information\nUnder Tracing\nPolice Case\nRefuse to Pay\nNo Answer\nWrong Number\nPaid in Full",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "sub_status",
+   "fieldtype": "Data",
+   "label": "Sub Status"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "sec_invoices",
+   "fieldtype": "Section Break",
+   "label": "Invoices",
+   "collapsible": 1,
+   "collapsible_depends_on": "invoices"
+  },
+  {
+   "fieldname": "invoices",
+   "fieldtype": "Table",
+   "label": "Invoices",
+   "options": "Debt Invoice",
+   "description": "If invoices are listed, the Claim Amount is their total."
+  },
+  {
+   "fieldname": "sec_comm",
+   "fieldtype": "Section Break",
+   "label": "Our Commission & Client Payout",
+   "collapsible": 1,
+   "collapsible_depends_on": "eval:1"
+  },
+  {
+   "fieldname": "commission_percent",
+   "fieldtype": "Float",
+   "label": "Commission %",
+   "description": "Taken from the client's default; change here for a special deal"
+  },
+  {
+   "fieldname": "commission_amount",
+   "fieldtype": "Float",
+   "label": "Our Commission",
+   "read_only": 1,
+   "precision": "3"
+  },
+  {
+   "fieldname": "cb_comm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "net_payable_to_client",
+   "fieldtype": "Float",
+   "label": "Net Due to Client",
+   "read_only": 1,
+   "description": "Collected minus our commission",
+   "precision": "3"
+  },
+  {
+   "fieldname": "remitted_amount",
+   "fieldtype": "Float",
+   "label": "Already Paid to Client",
+   "read_only": 1,
+   "no_copy": 1,
+   "precision": "3"
+  },
+  {
+   "fieldname": "payable_balance",
+   "fieldtype": "Float",
+   "label": "Still Owe Client",
+   "read_only": 1,
+   "bold": 1,
+   "precision": "3"
+  },
+  {
+   "fieldname": "tab_history",
+   "fieldtype": "Tab Break",
+   "label": "Case History"
+  },
+  {
+   "fieldname": "history_html",
+   "fieldtype": "HTML",
+   "label": "Case History"
+  },
+  {
+   "fieldname": "followups",
+   "fieldtype": "Table",
+   "label": "Follow-ups",
+   "options": "Debt Followup",
+   "hidden": 1
+  },
+  {
+   "fieldname": "tab_payments",
+   "fieldtype": "Tab Break",
+   "label": "Payment History"
+  },
+  {
+   "fieldname": "payment_history_html",
+   "fieldtype": "HTML",
+   "label": "Payment History"
+  },
+  {
+   "fieldname": "payments",
+   "fieldtype": "Table",
+   "label": "Payments",
+   "options": "Debt Payment"
+  },
+  {
+   "fieldname": "tab_plan",
+   "fieldtype": "Tab Break",
+   "label": "Payment Plan"
+  },
+  {
+   "fieldname": "plan_start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "frequency",
+   "fieldtype": "Select",
+   "label": "Frequency",
+   "options": "Daily\nWeekly\nMonthly",
+   "default": "Daily"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "label": "Installment Amount",
+   "precision": "3",
+   "description": "Amount the debtor agreed to pay each time."
+  },
+  {
+   "fieldname": "cb_plan",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pay_on_day",
+   "fieldtype": "Int",
+   "label": "Pay on Day of Month",
+   "default": "1",
+   "depends_on": "eval:doc.frequency=='Monthly' && !doc.pay_on_last_day"
+  },
+  {
+   "fieldname": "pay_on_last_day",
+   "fieldtype": "Check",
+   "label": "Pay on Last Day of Month",
+   "depends_on": "eval:doc.frequency=='Monthly'"
+  },
+  {
+   "fieldname": "pay_on_days",
+   "fieldtype": "Table",
+   "label": "Pay on Days",
+   "options": "Debt Pay On Day",
+   "depends_on": "eval:doc.frequency=='Weekly'"
+  },
+  {
+   "fieldname": "generate_schedule",
+   "fieldtype": "Button",
+   "label": "Generate Schedule"
+  },
+  {
+   "fieldname": "sec_schedule",
+   "fieldtype": "Section Break",
+   "label": "Payment Schedule"
+  },
+  {
+   "fieldname": "payment_schedule",
+   "fieldtype": "Table",
+   "label": "Payment Schedule",
+   "options": "Debt Payment Schedule"
+  },
+  {
+   "fieldname": "last_payment_amount",
+   "fieldtype": "Float",
+   "label": "Last Payment Amount",
+   "precision": "3",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "last_payment_date",
+   "fieldtype": "Date",
+   "label": "Last Payment Date",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "Low\nMedium\nHigh",
+   "default": "Low",
+   "hidden": 1
+  },
+  {
+   "fieldname": "has_police_case",
+   "fieldtype": "Check",
+   "label": "Police Case Filed",
+   "hidden": 1,
+   "read_only": 1,
+   "in_standard_filter": 0
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Debt Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Debt Officer",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "export": 0,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "if_owner": 1
+  }
+ ],
+ "doctype": "DocType",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "creation": "2026-10-16 00:00:00",
+ "modified": "2026-10-16 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "field_order": [
+  "tab_summary",
+  "summary_html",
+  "tab_case",
+  "case_type",
+  "status",
+  "internal_status",
+  "acquired_date",
+  "aging_date",
+  "debt_total_amount",
+  "total_claim_amount",
+  "debt_collected_amount",
+  "cb_case",
+  "collector",
+  "debt_currency",
+  "discount_percentage",
+  "discount_amount",
+  "debt_adjustment_amount",
+  "interest_judgment_amount",
+  "debt_balance_amount",
+  "sec_cases",
+  "debtor_cases_html",
+  "sec_police",
+  "police_case_number",
+  "police_case_date",
+  "police_registered_by",
+  "prosecution_case_number",
+  "police_station_name",
+  "police_station_status",
+  "cb_police",
+  "sec_fees",
+  "legal_fees",
+  "tab_debtor",
+  "debtor",
+  "debtor_name",
+  "debtor_cpr",
+  "debtor_status",
+  "expat_visa_status",
+  "nationality",
+  "cb_debtor",
+  "debtor_type",
+  "debtor_date",
+  "contract",
+  "sec_other_contacts",
+  "debtor_info",
+  "tab_more",
+  "msisdn",
+  "account_no",
+  "debt_product_key",
+  "san_status",
+  "aging",
+  "device",
+  "plan",
+  "plan_type",
+  "account_deactivation_date",
+  "debt_details",
+  "cb_more",
+  "individual_ban",
+  "next_followup_date",
+  "legal_eligibility",
+  "client",
+  "closing_date",
+  "discount_rate",
+  "discount_amount_0",
+  "main_status",
+  "sub_status",
+  "remarks",
+  "sec_invoices",
+  "invoices",
+  "sec_comm",
+  "commission_percent",
+  "commission_amount",
+  "cb_comm",
+  "net_payable_to_client",
+  "remitted_amount",
+  "payable_balance",
+  "tab_history",
+  "history_html",
+  "followups",
+  "tab_payments",
+  "payment_history_html",
+  "payments",
+  "tab_plan",
+  "plan_start_date",
+  "frequency",
+  "amount",
+  "cb_plan",
+  "pay_on_day",
+  "pay_on_last_day",
+  "pay_on_days",
+  "generate_schedule",
+  "sec_schedule",
+  "payment_schedule",
+  "last_payment_amount",
+  "last_payment_date",
+  "priority",
+  "has_police_case"
+ ]
+}

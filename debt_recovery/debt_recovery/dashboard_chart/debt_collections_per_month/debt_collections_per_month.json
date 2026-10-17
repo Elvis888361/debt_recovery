@@ -1,0 +1,21 @@
+{
+ "doctype": "Dashboard Chart",
+ "name": "Debt Collections per Month",
+ "chart_name": "Debt Collections per Month",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Debt Recovery",
+ "document_type": "Debt Payment",
+ "filters_json": "[]",
+ "use_report_chart": 0,
+ "show_values_over_chart": 0,
+ "chart_type": "Sum",
+ "parent_document_type": "Debtor Case",
+ "based_on": "receipt_date",
+ "value_based_on": "amount",
+ "time_interval": "Monthly",
+ "timespan": "Last Year",
+ "timeseries": 1,
+ "type": "Line",
+ "color": "#16a34a"
+}

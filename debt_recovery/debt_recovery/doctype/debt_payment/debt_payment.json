@@ -1,0 +1,54 @@
+{
+ "name": "Debt Payment",
+ "istable": 1,
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "receipt_no",
+   "fieldtype": "Data",
+   "label": "Receipt No.",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "receipt_date",
+   "fieldtype": "Date",
+   "label": "Receipt Date",
+   "reqd": 1,
+   "default": "Today",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "label": "Amount",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2,
+   "precision": "3"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks",
+   "in_list_view": 1,
+   "columns": 4
+  }
+ ],
+ "permissions": [],
+ "doctype": "DocType",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "creation": "2026-10-16 00:00:00",
+ "modified": "2026-10-16 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "field_order": [
+  "receipt_no",
+  "receipt_date",
+  "amount",
+  "remarks"
+ ]
+}

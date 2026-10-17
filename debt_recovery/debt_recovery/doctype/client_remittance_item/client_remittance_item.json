@@ -1,0 +1,60 @@
+{
+ "doctype": "DocType",
+ "name": "Client Remittance Item",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "fields": [
+  {
+   "fieldname": "debtor_case",
+   "fieldtype": "Link",
+   "label": "Debtor Case",
+   "options": "Debtor Case",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "debtor_name",
+   "fieldtype": "Data",
+   "label": "Debtor",
+   "fetch_from": "debtor_case.debtor_name",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "available",
+   "fieldtype": "Float",
+   "label": "Available to Pay",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2,
+   "precision": "3"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "label": "Amount Paid",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2,
+   "precision": "3"
+  }
+ ],
+ "field_order": [
+  "debtor_case",
+  "debtor_name",
+  "available",
+  "amount"
+ ],
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "creation": "2026-10-15 00:00:00",
+ "modified": "2026-10-15 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "istable": 1,
+ "editable_grid": 1
+}

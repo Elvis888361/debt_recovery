@@ -1,0 +1,214 @@
+{
+ "name": "Debtor",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "search_fields": "debtor_name,cpr,contact_no",
+ "title_field": "debtor_name",
+ "show_title_field_in_link": 0,
+ "track_changes": 1,
+ "quick_entry": 1,
+ "allow_import": 1,
+ "fields": [
+  {
+   "fieldname": "debtor_name",
+   "fieldtype": "Data",
+   "label": "Debtor Name",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_global_search": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cpr",
+   "fieldtype": "Data",
+   "label": "CPR",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "in_global_search": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "cr",
+   "fieldtype": "Data",
+   "label": "CR"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Data",
+   "label": "Nationality",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Data",
+   "label": "Occupation"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "passport_no",
+   "fieldtype": "Data",
+   "label": "Passport No"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "debtor_type",
+   "fieldtype": "Select",
+   "label": "Debtor Type",
+   "options": "Individual\nCompany",
+   "default": "Individual",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "debtor_status",
+   "fieldtype": "Select",
+   "label": "Debtor Status",
+   "options": "ALIVE\nDECEASED\nUNKNOWN",
+   "default": "ALIVE"
+  },
+  {
+   "fieldname": "expat_visa_status",
+   "fieldtype": "Data",
+   "label": "Expat Visa Status"
+  },
+  {
+   "fieldname": "contact_no",
+   "fieldtype": "Data",
+   "label": "Contact No",
+   "options": "Phone",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sec_address",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "flat_villa_no",
+   "fieldtype": "Data",
+   "label": "Flat/Villa No"
+  },
+  {
+   "fieldname": "building",
+   "fieldtype": "Data",
+   "label": "Building"
+  },
+  {
+   "fieldname": "road_no",
+   "fieldtype": "Data",
+   "label": "Road No."
+  },
+  {
+   "fieldname": "block_no",
+   "fieldtype": "Data",
+   "label": "Block No."
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Debt Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Debt Officer",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "export": 0,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0
+  }
+ ],
+ "doctype": "DocType",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "creation": "2026-10-16 00:00:00",
+ "modified": "2026-10-16 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "field_order": [
+  "debtor_name",
+  "cpr",
+  "cr",
+  "nationality",
+  "occupation",
+  "email",
+  "passport_no",
+  "cb1",
+  "debtor_type",
+  "debtor_status",
+  "expat_visa_status",
+  "contact_no",
+  "sec_address",
+  "flat_villa_no",
+  "building",
+  "road_no",
+  "block_no",
+  "cb2",
+  "remarks"
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "doctype": "Dashboard Chart",
+ "name": "Debt Cases Acquired per Month",
+ "chart_name": "Debt Cases Acquired per Month",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Debt Recovery",
+ "document_type": "Debtor Case",
+ "filters_json": "[]",
+ "use_report_chart": 0,
+ "show_values_over_chart": 0,
+ "chart_type": "Count",
+ "based_on": "acquired_date",
+ "time_interval": "Monthly",
+ "timespan": "Last Year",
+ "timeseries": 1,
+ "type": "Bar",
+ "color": "#2563eb"
+}

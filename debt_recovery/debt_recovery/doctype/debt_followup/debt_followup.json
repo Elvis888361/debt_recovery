@@ -1,0 +1,92 @@
+{
+ "name": "Debt Followup",
+ "istable": 1,
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "followup_date",
+   "fieldtype": "Datetime",
+   "label": "Creation Date",
+   "reqd": 1,
+   "default": "Now",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "collector",
+   "fieldtype": "Link",
+   "label": "Collector",
+   "options": "Sales Person",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "main_status",
+   "fieldtype": "Select",
+   "label": "Main Status",
+   "options": "\nUnder Follow Up\nPromise to Pay\nPartial Payment\nTracing Done 1\nTracing Done Without Information\nUnder Tracing\nPolice Case\nRefuse to Pay\nNo Answer\nWrong Number\nPaid in Full",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "sub_status",
+   "fieldtype": "Data",
+   "label": "Sub Status"
+  },
+  {
+   "fieldname": "ptp",
+   "fieldtype": "Check",
+   "label": "PTP",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "promise_date",
+   "fieldtype": "Date",
+   "label": "PTP Date",
+   "depends_on": "ptp"
+  },
+  {
+   "fieldname": "promise_amount",
+   "fieldtype": "Float",
+   "label": "PTP Amount",
+   "depends_on": "ptp",
+   "precision": "3"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remark",
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "by",
+   "fieldtype": "Link",
+   "label": "By",
+   "options": "User",
+   "default": "__user",
+   "read_only": 1
+  }
+ ],
+ "permissions": [],
+ "doctype": "DocType",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "creation": "2026-10-16 00:00:00",
+ "modified": "2026-10-16 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "field_order": [
+  "followup_date",
+  "collector",
+  "main_status",
+  "sub_status",
+  "ptp",
+  "promise_date",
+  "promise_amount",
+  "remarks",
+  "by"
+ ]
+}

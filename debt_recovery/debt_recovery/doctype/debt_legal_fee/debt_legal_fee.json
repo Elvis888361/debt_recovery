@@ -1,0 +1,47 @@
+{
+ "name": "Debt Legal Fee",
+ "istable": 1,
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "fees_type",
+   "fieldtype": "Select",
+   "label": "Fees Type",
+   "options": "\nCourt Fee\nLawyer Fee\nPolice Fee\nTravel\nOther",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 4
+  },
+  {
+   "fieldname": "fee_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "default": "Today",
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "label": "Amount",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3,
+   "precision": "3"
+  }
+ ],
+ "permissions": [],
+ "doctype": "DocType",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "creation": "2026-10-16 00:00:00",
+ "modified": "2026-10-16 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "field_order": [
+  "fees_type",
+  "fee_date",
+  "amount"
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "name": "Debt Recovery Settings",
+ "issingle": 1,
+ "fields": [
+  {
+   "fieldname": "daily_action_target",
+   "fieldtype": "Int",
+   "label": "Daily Action Target (per collector)",
+   "default": "120",
+   "description": "Follow-up actions each collector should log per day; shown on the case summary."
+  },
+  {
+   "fieldname": "monthly_collection_target",
+   "fieldtype": "Float",
+   "label": "Monthly Collection Target (per collector)",
+   "precision": "3",
+   "description": "Shown under 'Monthly target' on the case summary. 0 hides the target."
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Debt Manager",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Debt Officer",
+   "read": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1
+  }
+ ],
+ "doctype": "DocType",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "creation": "2026-10-16 00:00:00",
+ "modified": "2026-10-16 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "field_order": [
+  "daily_action_target",
+  "monthly_collection_target"
+ ]
+}

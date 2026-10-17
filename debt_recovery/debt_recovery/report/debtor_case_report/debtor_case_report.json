@@ -1,0 +1,27 @@
+{
+ "doctype": "Report",
+ "name": "Debtor Case Report",
+ "ref_doctype": "Debtor Case",
+ "report_name": "Debtor Case Report",
+ "report_type": "Script Report",
+ "is_standard": "Yes",
+ "module": "Debt Recovery",
+ "add_total_row": 1,
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Debt Officer"
+  },
+  {
+   "role": "Debt Manager"
+  }
+ ]
+}

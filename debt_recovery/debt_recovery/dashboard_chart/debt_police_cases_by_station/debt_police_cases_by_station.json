@@ -1,0 +1,18 @@
+{
+ "doctype": "Dashboard Chart",
+ "name": "Debt Police Cases by Station",
+ "chart_name": "Debt Police Cases by Station",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Debt Recovery",
+ "document_type": "Debtor Case",
+ "filters_json": "[[\"Debtor Case\", \"has_police_case\", \"=\", 1]]",
+ "use_report_chart": 0,
+ "show_values_over_chart": 0,
+ "chart_type": "Group By",
+ "group_by_type": "Count",
+ "group_by_based_on": "police_station_name",
+ "type": "Bar",
+ "number_of_groups": 10,
+ "color": "#b91c1c"
+}

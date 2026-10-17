@@ -1,0 +1,46 @@
+{
+ "name": "Debt Contact Info",
+ "istable": 1,
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "contact_type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Phone\nWhatsApp\nEmail\nAddress\nEmployer",
+   "reqd": 1,
+   "default": "Phone",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "value",
+   "fieldtype": "Data",
+   "label": "Value",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 4
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "label": "Remarks",
+   "in_list_view": 1,
+   "columns": 4
+  }
+ ],
+ "permissions": [],
+ "doctype": "DocType",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "creation": "2026-10-16 00:00:00",
+ "modified": "2026-10-16 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "field_order": [
+  "contact_type",
+  "value",
+  "remarks"
+ ]
+}

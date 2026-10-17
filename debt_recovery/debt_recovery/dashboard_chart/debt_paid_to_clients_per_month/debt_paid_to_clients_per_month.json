@@ -1,0 +1,20 @@
+{
+ "doctype": "Dashboard Chart",
+ "name": "Debt Paid to Clients per Month",
+ "chart_name": "Debt Paid to Clients per Month",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Debt Recovery",
+ "document_type": "Client Remittance",
+ "filters_json": "[[\"Client Remittance\",\"docstatus\",\"=\",1]]",
+ "use_report_chart": 0,
+ "show_values_over_chart": 0,
+ "chart_type": "Sum",
+ "based_on": "posting_date",
+ "value_based_on": "total_amount",
+ "time_interval": "Monthly",
+ "timespan": "Last Year",
+ "timeseries": 1,
+ "type": "Line",
+ "color": "#ea580c"
+}

@@ -1,0 +1,163 @@
+{
+ "doctype": "Workspace",
+ "name": "Debt Recovery",
+ "label": "Debt Recovery",
+ "title": "Debt Recovery",
+ "module": "Debt Recovery",
+ "public": 1,
+ "icon": "wallet",
+ "is_hidden": 0,
+ "for_user": "",
+ "content": "[{\"id\": \"h1\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Overview</b></span>\", \"col\": 12}}, {\"id\": \"n0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Active Cases\", \"col\": 3}}, {\"id\": \"n1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Total Entrusted\", \"col\": 3}}, {\"id\": \"n2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Collected\", \"col\": 3}}, {\"id\": \"n3\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Outstanding\", \"col\": 3}}, {\"id\": \"n4\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Our Commission\", \"col\": 3}}, {\"id\": \"n5\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"We Owe Clients\", \"col\": 3}}, {\"id\": \"n6\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Police Cases\", \"col\": 3}}, {\"id\": \"n7\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"New Cases\", \"col\": 3}}, {\"id\": \"h2\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick Actions</b></span>\", \"col\": 12}}, {\"id\": \"s0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"New Debtor Case\", \"col\": 3}}, {\"id\": \"s1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Debtors\", \"col\": 3}}, {\"id\": \"s2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Creditors (Clients)\", \"col\": 3}}, {\"id\": \"s3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Police Cases\", \"col\": 3}}, {\"id\": \"s4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Pay a Client\", \"col\": 3}}, {\"id\": \"s5\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Remittances\", \"col\": 3}}, {\"id\": \"s6\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Dashboard\", \"col\": 3}}, {\"id\": \"s7\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Debtor Report\", \"col\": 3}}, {\"id\": \"s8\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Client Statement\", \"col\": 3}}, {\"id\": \"s9\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Debtor Records\", \"col\": 3}}, {\"id\": \"s10\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Settings\", \"col\": 3}}, {\"id\": \"h3\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick Lists</b></span>\", \"col\": 12}}, {\"id\": \"q0\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Open Debtors\", \"col\": 6}}, {\"id\": \"q1\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Promise to Pay\", \"col\": 6}}, {\"id\": \"q2\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Police Cases\", \"col\": 6}}, {\"id\": \"q3\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Recent Payments to Clients\", \"col\": 6}}, {\"id\": \"q4\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Clients\", \"col\": 6}}]",
+ "number_cards": [
+  {
+   "label": "Active Cases",
+   "number_card_name": "Debt Active Cases"
+  },
+  {
+   "label": "Total Entrusted",
+   "number_card_name": "Debt Total Entrusted"
+  },
+  {
+   "label": "Collected",
+   "number_card_name": "Debt Collected"
+  },
+  {
+   "label": "Outstanding",
+   "number_card_name": "Debt Outstanding"
+  },
+  {
+   "label": "Our Commission",
+   "number_card_name": "Debt Our Commission"
+  },
+  {
+   "label": "We Owe Clients",
+   "number_card_name": "Debt We Owe Clients"
+  },
+  {
+   "label": "Police Cases",
+   "number_card_name": "Debt Police Cases"
+  },
+  {
+   "label": "New Cases",
+   "number_card_name": "Debt New Cases"
+  }
+ ],
+ "shortcuts": [
+  {
+   "label": "New Debtor Case",
+   "type": "DocType",
+   "link_to": "Debtor Case",
+   "doc_view": "New",
+   "color": "Blue",
+   "icon": "plus"
+  },
+  {
+   "label": "Debtors",
+   "type": "DocType",
+   "link_to": "Debtor Case",
+   "doc_view": "List",
+   "color": "Blue",
+   "icon": "users"
+  },
+  {
+   "label": "Creditors (Clients)",
+   "type": "DocType",
+   "link_to": "Recovery Client",
+   "doc_view": "List",
+   "color": "Orange",
+   "icon": "building"
+  },
+  {
+   "label": "Police Cases",
+   "type": "DocType",
+   "link_to": "Debtor Case",
+   "doc_view": "List",
+   "color": "Red",
+   "icon": "shield",
+   "stats_filter": "[[\"Debtor Case\", \"has_police_case\", \"=\", 1]]"
+  },
+  {
+   "label": "Pay a Client",
+   "type": "DocType",
+   "link_to": "Client Remittance",
+   "doc_view": "New",
+   "color": "Green",
+   "icon": "banknote"
+  },
+  {
+   "label": "Remittances",
+   "type": "DocType",
+   "link_to": "Client Remittance",
+   "doc_view": "List",
+   "color": "Green",
+   "icon": "list"
+  },
+  {
+   "label": "Dashboard",
+   "type": "Dashboard",
+   "link_to": "Debt Recovery",
+   "color": "Purple",
+   "icon": "chart-column"
+  },
+  {
+   "label": "Debtor Report",
+   "type": "Report",
+   "link_to": "Debtor Case Report",
+   "doc_view": "Report",
+   "color": "Grey",
+   "icon": "table"
+  },
+  {
+   "label": "Client Statement",
+   "type": "Report",
+   "link_to": "Client Statement",
+   "doc_view": "Report",
+   "color": "Grey",
+   "icon": "file-text"
+  },
+  {
+   "label": "Debtor Records",
+   "type": "DocType",
+   "link_to": "Debtor",
+   "doc_view": "List",
+   "color": "Blue",
+   "icon": "users"
+  },
+  {
+   "label": "Settings",
+   "type": "DocType",
+   "link_to": "Debt Recovery Settings",
+   "doc_view": "",
+   "color": "Grey",
+   "icon": "settings"
+  }
+ ],
+ "quick_lists": [
+  {
+   "document_type": "Debtor Case",
+   "label": "Open Debtors",
+   "quick_list_filter": "[[\"Debtor Case\", \"status\", \"not in\", [\"Settled\", \"Closed\", \"Returned to Client\"]]]"
+  },
+  {
+   "document_type": "Debtor Case",
+   "label": "Promise to Pay",
+   "quick_list_filter": "[[\"Debtor Case\", \"status\", \"=\", \"Promise to Pay\"]]"
+  },
+  {
+   "document_type": "Debtor Case",
+   "label": "Police Cases",
+   "quick_list_filter": "[[\"Debtor Case\", \"has_police_case\", \"=\", 1]]"
+  },
+  {
+   "document_type": "Client Remittance",
+   "label": "Recent Payments to Clients",
+   "quick_list_filter": "[]"
+  },
+  {
+   "document_type": "Recovery Client",
+   "label": "Clients",
+   "quick_list_filter": "[]"
+  }
+ ]
+}
