@@ -4,4 +4,13 @@ from frappe.model.document import Document
 
 class Debtor(Document):
 	def autoname(self):
-		self.name = "DBT-" + frappe.generate_hash(length=8).upper()
+		"""The debtor's own name is the record name; a clash gets the CPR (then a number) added."""
+		base = (self.debtor_name or "").strip()
+		name = base
+		if frappe.db.exists("Debtor", name) and self.cpr:
+			name = f"{base} - {self.cpr}"
+		i = 1
+		while frappe.db.exists("Debtor", name):
+			i += 1
+			name = f"{base} - {i}"
+		self.name = name

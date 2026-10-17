@@ -26,10 +26,11 @@
   {
    "fieldname": "commission_percent",
    "fieldtype": "Float",
-   "label": "Our Commission %",
-   "reqd": 1,
+   "label": "Default Commission %",
    "in_list_view": 1,
-   "description": "Default % we keep from every amount collected for this client"
+   "description": "First row of the Commissions table",
+   "hidden": 1,
+   "read_only": 1
   },
   {
    "fieldname": "cb1",
@@ -49,6 +50,18 @@
    "fieldname": "contract_file",
    "fieldtype": "Attach",
    "label": "Attach Contract"
+  },
+  {
+   "fieldname": "sec_commissions",
+   "fieldtype": "Section Break",
+   "label": "Commissions"
+  },
+  {
+   "fieldname": "commissions",
+   "fieldtype": "Table",
+   "label": "Commissions",
+   "options": "Recovery Client Commission",
+   "description": "The first row is the default: it is filled in automatically on every new case for this client. Other rows can be chosen per case."
   },
   {
    "fieldname": "sec_contact",
@@ -119,6 +132,8 @@
   "contract_date",
   "contract_ref",
   "contract_file",
+  "sec_commissions",
+  "commissions",
   "sec_contact",
   "contact_person",
   "email",

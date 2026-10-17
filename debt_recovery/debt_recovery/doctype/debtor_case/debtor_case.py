@@ -12,12 +12,72 @@ from debt_recovery.utils import sees_all
 
 class DebtorCase(Document):
 	def validate(self):
-		if self.commission_percent in (None, "") and self.client:
-			self.commission_percent = frappe.db.get_value("Recovery Client", self.client, "commission_percent")
+		self.sync_client()
+		self.resolve_commission()
+		self.sync_debtor()
 		self.has_police_case = 1 if (self.case_type in ("Police Station", "Prosecution") or self.police_case_number) else 0
 		self.sync_latest_followup()
 		self.compute_totals()
 		self.update_schedule()
+
+	def sync_client(self):
+		"""Typing a client name links the matching Recovery Client on save; the linked client's name wins otherwise."""
+		typed = (self.client_name or "").strip()
+		if typed and (not self.client or typed.lower() != self.client.lower()):
+			match = frappe.db.get_value("Recovery Client", typed)
+			if match:
+				self.client = match
+				frappe.msgprint(f"Matched client <b>{match}</b>", alert=True, indicator="green")
+			elif not self.client:
+				frappe.msgprint(f"No client named <b>{typed}</b> exists - saved without a client link", alert=True, indicator="orange")
+				return
+		if self.client:
+			self.client_name = self.client
+
+	def resolve_commission(self):
+		"""Client's first commission row is the default; a chosen plan sets its own %; a typed % is kept as a special deal."""
+		if not self.client:
+			return
+		rows = frappe.get_all("Recovery Client Commission", filters={"parent": self.client, "parenttype": "Recovery Client"},
+			fields=["commission_name", "commission_percent"], order_by="idx")
+		if not rows:
+			return
+		plan = next((r for r in rows if r.commission_name == self.commission_plan), None) if self.commission_plan else None
+		fresh = self.is_new() or self.has_value_changed("client")
+		if plan and (fresh or self.has_value_changed("commission_plan") or not flt(self.commission_percent)):
+			self.commission_percent = plan.commission_percent
+		elif not plan and (fresh and not flt(self.commission_percent) or self.commission_percent in (None, "")):
+			self.commission_plan, self.commission_percent = rows[0].commission_name, rows[0].commission_percent
+
+	def sync_debtor(self):
+		"""Debtor is optional: a typed name links (or creates) the Debtor; edits to name/CPR flow back to it."""
+		name, cpr = (self.debtor_name or "").strip(), (self.debtor_cpr or "").strip()
+		if not self.debtor:
+			if not name:
+				frappe.throw("Enter a Debtor, or type the Debtor Name")
+			existing = frappe.db.get_value("Debtor", {"cpr": cpr}) if cpr else None
+			if not existing:  # same name, and either no CPR was typed or the stored debtor has none yet
+				cond = {"debtor_name": name} if not cpr else {"debtor_name": name, "cpr": ["in", ["", None]]}
+				existing = frappe.db.get_value("Debtor", cond)
+			if existing:
+				self.debtor = existing
+				deb = frappe.db.get_value("Debtor", existing, ["debtor_name", "cpr"], as_dict=True)
+				if cpr and not deb.cpr:
+					frappe.db.set_value("Debtor", existing, "cpr", cpr)
+				self.debtor_name, self.debtor_cpr = deb.debtor_name, cpr or deb.cpr
+				frappe.msgprint(f"Matched existing debtor <b>{existing}</b>", alert=True, indicator="green")
+			else:
+				self.debtor = frappe.get_doc({"doctype": "Debtor", "debtor_name": name, "cpr": cpr or None}).insert(ignore_permissions=True).name
+				frappe.msgprint(f"No existing debtor found - created <b>{self.debtor}</b>", alert=True, indicator="blue")
+			return
+		deb = frappe.db.get_value("Debtor", self.debtor, ["debtor_name", "cpr"], as_dict=True)
+		if not name:  # picked a debtor and left the name blank (e.g. API/import): take it from the Debtor
+			self.debtor_name, self.debtor_cpr = deb.debtor_name, deb.cpr
+			return
+		edited = self.is_new() or ((self.has_value_changed("debtor_name") or self.has_value_changed("debtor_cpr")) and not self.has_value_changed("debtor"))
+		if edited and (name != (deb.debtor_name or "") or cpr != (deb.cpr or "")):
+			frappe.db.set_value("Debtor", self.debtor, {"debtor_name": name, "cpr": cpr or None})
+			frappe.db.set_value("Debtor Case", {"debtor": self.debtor, "name": ["!=", self.name]}, {"debtor_name": name, "debtor_cpr": cpr or None})
 
 	def sync_latest_followup(self):
 		rows = sorted(self.followups, key=lambda r: str(r.followup_date or ""))

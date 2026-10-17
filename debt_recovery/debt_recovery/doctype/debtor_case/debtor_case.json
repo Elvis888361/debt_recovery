@@ -209,14 +209,12 @@
    "fieldtype": "Link",
    "label": "Debtor",
    "options": "Debtor",
-   "reqd": 1
+   "description": "Optional - leave empty and type the Debtor Name below to create/link one on save."
   },
   {
    "fieldname": "debtor_name",
    "fieldtype": "Data",
    "label": "Debtor Name",
-   "read_only": 1,
-   "fetch_from": "debtor.debtor_name",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "in_global_search": 1
@@ -225,8 +223,6 @@
    "fieldname": "debtor_cpr",
    "fieldtype": "Data",
    "label": "CPR",
-   "read_only": 1,
-   "fetch_from": "debtor.cpr",
    "in_standard_filter": 1,
    "in_global_search": 1,
    "search_index": 1
@@ -371,9 +367,14 @@
    "fieldtype": "Link",
    "label": "Client",
    "options": "Recovery Client",
-   "reqd": 1,
    "in_standard_filter": 1,
    "in_list_view": 1
+  },
+  {
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "label": "Client Name",
+   "description": "Type a client name - on save it is matched to an existing client and linked."
   },
   {
    "fieldname": "closing_date",
@@ -431,10 +432,16 @@
    "collapsible_depends_on": "eval:1"
   },
   {
+   "fieldname": "commission_plan",
+   "fieldtype": "Autocomplete",
+   "label": "Commission Plan",
+   "description": "Chosen from the client's Commissions table; the first one is the default"
+  },
+  {
    "fieldname": "commission_percent",
    "fieldtype": "Float",
    "label": "Commission %",
-   "description": "Taken from the client's default; change here for a special deal"
+   "description": "Filled from the plan above; type another % for a special deal on this case"
   },
   {
    "fieldname": "commission_amount",
@@ -732,6 +739,7 @@
   "next_followup_date",
   "legal_eligibility",
   "client",
+  "client_name",
   "closing_date",
   "discount_rate",
   "discount_amount_0",
@@ -741,6 +749,7 @@
   "sec_invoices",
   "invoices",
   "sec_comm",
+  "commission_plan",
   "commission_percent",
   "commission_amount",
   "cb_comm",

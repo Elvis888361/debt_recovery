@@ -1,0 +1,46 @@
+{
+ "doctype": "DocType",
+ "name": "Recovery Client Commission",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "istable": 1,
+ "editable_grid": 1,
+ "creation": "2026-10-17 00:00:00",
+ "modified": "2026-10-17 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "permissions": [],
+ "fields": [
+  {
+   "fieldname": "commission_name",
+   "fieldtype": "Data",
+   "label": "Commission Name",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3,
+   "description": "e.g. Standard, Police case, Court recovery"
+  },
+  {
+   "fieldname": "commission_percent",
+   "fieldtype": "Float",
+   "label": "Commission %",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2,
+   "precision": "3"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "label": "When it applies",
+   "in_list_view": 1,
+   "columns": 5
+  }
+ ],
+ "field_order": [
+  "commission_name",
+  "commission_percent",
+  "remarks"
+ ]
+}

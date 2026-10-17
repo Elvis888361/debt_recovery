@@ -7,8 +7,16 @@ from debt_recovery.utils import owner_sql
 
 class RecoveryClient(Document):
 	def validate(self):
-		if not 0 <= flt(self.commission_percent) <= 100:
-			frappe.throw("Commission % must be between 0 and 100")
+		if not self.commissions:
+			frappe.throw("Add at least one commission row - the first row is the default for new cases")
+		names = set()
+		for r in self.commissions:
+			if not 0 <= flt(r.commission_percent) <= 100:
+				frappe.throw(f"Row {r.idx}: Commission % must be between 0 and 100")
+			if r.commission_name.strip().lower() in names:
+				frappe.throw(f"Row {r.idx}: commission name '{r.commission_name}' is used twice")
+			names.add(r.commission_name.strip().lower())
+		self.commission_percent = flt(self.commissions[0].commission_percent)  # default = first row
 
 
 @frappe.whitelist()

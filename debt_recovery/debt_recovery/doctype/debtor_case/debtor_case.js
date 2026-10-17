@@ -104,12 +104,42 @@ frappe.ui.form.on("Debtor Case", {
 		if (frm.is_new() && !frm.doc.commission_percent && frm.doc.client) frm.trigger("client");
 	},
 
+	debtor(frm) {
+		if (!frm.doc.debtor) return;
+		frappe.db.get_value("Debtor", frm.doc.debtor, ["debtor_name", "cpr"]).then((r) => {
+			frm.set_value("debtor_name", r.message.debtor_name);
+			frm.set_value("debtor_cpr", r.message.cpr);
+		});
+	},
+
 	client(frm) {
-		if (frm.doc.client)
-			frappe.db.get_value("Recovery Client", frm.doc.client, "commission_percent").then((r) => frm.set_value("commission_percent", r.message.commission_percent));
+		frm.set_value("client_name", frm.doc.client || "");
+		frm.trigger("load_commission_plans").then(() => {
+			const first = (frm.dc_plans || [])[0];
+			if (first) {
+				frm.set_value("commission_plan", first.commission_name);
+				frm.set_value("commission_percent", first.commission_percent);
+			}
+		});
+	},
+
+	commission_plan(frm) {
+		const p = (frm.dc_plans || []).find((x) => x.commission_name === frm.doc.commission_plan);
+		if (p) frm.set_value("commission_percent", p.commission_percent);
+	},
+
+	async load_commission_plans(frm) {
+		frm.dc_plans = [];
+		if (frm.doc.client) {
+			const r = await frappe.call({ method: "frappe.client.get", args: { doctype: "Recovery Client", name: frm.doc.client } }).catch(() => null);
+			frm.dc_plans = (r && r.message && r.message.commissions) || [];
+		}
+		frm.set_df_property("commission_plan", "options", frm.dc_plans.map((x) => x.commission_name));
+		frm.refresh_field("commission_plan");
 	},
 
 	refresh(frm) {
+		frm.trigger("load_commission_plans");
 		frm.trigger("render_empty_states");
 		if (frm.is_new()) {
 			// unsaved: render the same layout from the form values, no server data yet
@@ -221,7 +251,7 @@ frappe.ui.form.on("Debtor Case", {
 	render_banner(frm) {
 		const d = frm.doc;
 		frm.dashboard.set_headline_alert(
-			`<div class="dc-banner"><div><div>${__("Client")}: <b>${frappe.utils.escape_html(d.client || "")}</b></div>
+			`<div class="dc-banner"><div><div>${__("Client")}: <b>${frappe.utils.escape_html(d.client_name || d.client || "–")}</b></div>
 			<div>${__("Debtor")}: <b>${frappe.utils.escape_html(d.debtor_name || "")}${d.debtor_cpr ? ` (${frappe.utils.escape_html(d.debtor_cpr)})` : ""}</b>
 			<button class="btn-show" data-act="details">${__("Show Details")}</button></div></div></div>`,
 			"red"
@@ -230,7 +260,7 @@ frappe.ui.form.on("Debtor Case", {
 	},
 
 	debtor_dialog(frm) {
-		if (!frm.doc.debtor) return frappe.msgprint(__("Select a Debtor first"));
+		if (!frm.doc.debtor) return frappe.msgprint(__("Save the case first - the debtor is created from the Debtor Name when you save."));
 		frappe.db.get_doc("Debtor", frm.doc.debtor).then((deb) => {
 			const f = (fieldname, label, extra = {}) => ({ fieldname, label: __(label), fieldtype: "Data", default: deb[fieldname], ...extra });
 			const d = new frappe.ui.Dialog({
@@ -386,7 +416,7 @@ frappe.ui.form.on("Debtor Case", {
 		const html = `<div class="dc-sum">
 		<div class="dc-hero"><div class="dc-avatar">${e(initials)}</div><div style="flex:1;min-width:0">
 			<h2>${e(d.debtor_name || "")}</h2>
-			<div class="dc-meta"><span>${__("Case")} <b>${frm.is_new() ? __("Not saved") : e(d.name)}</b></span><span>${__("Client")} <b>${e(d.client || "")}</b></span><span>${__("Agent")} <b>${e(d.collector || "–")}</b></span></div>
+			<div class="dc-meta"><span>${__("Case")} <b>${frm.is_new() ? __("Not saved") : e(d.name)}</b></span><span>${__("Client")} <b>${e(d.client_name || d.client || "–")}</b></span><span>${__("Agent")} <b>${e(d.collector || "–")}</b></span></div>
 			<div class="dc-chips">${others.length ? `<span class="dc-chip" data-go="debtor">${__("{0} cases for this debtor", [others.length + 1])} <span class="dc-chip pill-due">${money(due_total)} ${__("due in total")}</span> &rsaquo;</span>` : `<span class="dc-chip plain">${__("No other cases for this debtor")}</span>`}
 			<span class="dc-chip target" data-go="target"><svg class="icon icon-sm"><use href="#icon-small-file"></use></svg>${__("Monthly target")} &rsaquo;</span></div>
 			<div class="dc-chips">${status_chip}${type_chip}<span class="dc-chip plain">${e(d.status)}</span><span class="dc-chip plain">${__(d.priority || "Low")} ${__("Priority")}</span></div>

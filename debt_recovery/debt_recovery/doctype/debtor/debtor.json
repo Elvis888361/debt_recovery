@@ -210,5 +210,6 @@
   "block_no",
   "cb2",
   "remarks"
- ]
+ ],
+ "allow_rename": 1
 }
