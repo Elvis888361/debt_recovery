@@ -230,5 +230,6 @@
  "title_field": "client_name",
  "search_fields": "client_name",
  "track_changes": 1,
- "quick_entry": 0
+ "quick_entry": 0,
+ "allow_import": 1
 }

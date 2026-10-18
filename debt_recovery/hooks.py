@@ -266,5 +266,7 @@ add_to_apps_screen = [
 	}
 ]
 
+override_doctype_class = {"Deleted Document": "debt_recovery.overrides.DebtDeletedDocument"}
+
 after_install = "debt_recovery.setup.ensure_roles"
 after_migrate = "debt_recovery.setup.ensure_roles"

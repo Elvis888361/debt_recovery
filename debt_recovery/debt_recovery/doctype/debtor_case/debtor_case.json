@@ -1,6 +1,6 @@
 {
  "name": "Debtor Case",
- "autoname": "CM-.YYYY.-.#####",
+ "autoname": "PG-.YYYY.-.#####",
  "naming_rule": "Expression (old style)",
  "sort_field": "debt_balance_amount",
  "sort_order": "DESC",
