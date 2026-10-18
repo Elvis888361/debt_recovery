@@ -591,6 +591,15 @@
    "hidden": 1
   },
   {
+   "fieldname": "plan_paid_baseline",
+   "fieldtype": "Float",
+   "label": "Paid Before Plan",
+   "precision": "3",
+   "read_only": 1,
+   "hidden": 1,
+   "no_copy": 1
+  },
+  {
    "fieldname": "priority",
    "fieldtype": "Select",
    "label": "Priority",
@@ -775,6 +784,7 @@
   "payment_schedule",
   "last_payment_amount",
   "last_payment_date",
+  "plan_paid_baseline",
   "priority",
   "has_police_case"
  ]

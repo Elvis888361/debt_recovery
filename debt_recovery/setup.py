@@ -18,6 +18,7 @@ def ensure_roles():
 		frappe.db.set_value("Currency", "BHD", {"enabled": 1, "symbol": "BD"})
 	ensure_list_view()
 	ensure_deleted_document_columns()
+	ensure_default_print_format()
 
 
 def ensure_list_view():
@@ -58,3 +59,11 @@ def ensure_deleted_document_columns():
 		debtor, client = debt_links(r.deleted_doctype, r.deleted_name, r.data)
 		if debtor or client:
 			frappe.db.set_value("Deleted Document", r.name, {"debtor": debtor, "client": client}, update_modified=False)
+
+
+def ensure_default_print_format():
+	"""Demand Notice is the default print format of Debtor Case."""
+	if frappe.db.exists("Print Format", "Demand Notice"):
+		frappe.make_property_setter(
+			{"doctype": "Debtor Case", "doctype_or_field": "DocType", "property": "default_print_format", "value": "Demand Notice", "property_type": "Data"}
+		)

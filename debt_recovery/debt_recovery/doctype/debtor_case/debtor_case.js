@@ -176,6 +176,7 @@ frappe.ui.form.on("Debtor Case", {
 			method: API + "build_schedule",
 			args: { start_date: d.plan_start_date, frequency: d.frequency, amount: d.amount, balance: d.debt_balance_amount, pay_on_day: d.pay_on_day, pay_on_last_day: d.pay_on_last_day, days: JSON.stringify((d.pay_on_days || []).map((r) => r.day)) },
 		}).then((r) => {
+			frm.set_value("plan_paid_baseline", flt(frm.doc.debt_collected_amount));
 			frm.clear_table("payment_schedule");
 			(r.message || []).forEach((row) => frm.add_child("payment_schedule", row));
 			frm.refresh_field("payment_schedule");

@@ -15,6 +15,14 @@
    "label": "Monthly Collection Target (per collector)",
    "precision": "3",
    "description": "Shown under 'Monthly target' on the case summary. 0 hides the target."
+  },
+  {
+   "fieldname": "default_commission_percent",
+   "fieldtype": "Float",
+   "label": "Default Commission % for New Clients",
+   "precision": "3",
+   "default": "0",
+   "description": "Used for the first (Standard) commission row when a client is created automatically from a typed Client Name on a case or import. Review it on the client afterwards."
   }
  ],
  "permissions": [
@@ -51,6 +59,7 @@
  "modified_by": "Administrator",
  "field_order": [
   "daily_action_target",
-  "monthly_collection_target"
+  "monthly_collection_target",
+  "default_commission_percent"
  ]
 }

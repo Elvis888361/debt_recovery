@@ -29,8 +29,13 @@ class DebtorCase(Document):
 				self.client = match
 				frappe.msgprint(f"Matched client <b>{match}</b>", alert=True, indicator="green")
 			elif not self.client:
-				frappe.msgprint(f"No client named <b>{typed}</b> exists - saved without a client link", alert=True, indicator="orange")
-				return
+				pct = flt(frappe.db.get_single_value("Debt Recovery Settings", "default_commission_percent"))
+				new = frappe.get_doc(
+					{"doctype": "Recovery Client", "client_name": typed, "status": "Active",
+					 "commissions": [{"commission_name": "Standard", "commission_percent": pct}]}
+				).insert(ignore_permissions=True)
+				self.client = new.name
+				frappe.msgprint(f"No client named <b>{typed}</b> existed - created it with a Standard commission of {pct}%. Please review it.", alert=True, indicator="blue")
 		if self.client:
 			self.client_name = self.client
 
@@ -118,7 +123,9 @@ class DebtorCase(Document):
 
 	def update_schedule(self):
 		"""Payments clear the schedule oldest-due-first; each row gets Paid / Partial / Overdue / Pending."""
-		left, today = flt(self.debt_collected_amount), getdate(nowdate())
+		today = getdate(nowdate())
+		# the schedule was built on the balance left after earlier payments, so only money received since then counts
+		left = max(flt(self.debt_collected_amount) - flt(self.plan_paid_baseline), 0)
 		for r in sorted(self.payment_schedule, key=lambda r: (str(r.due_date or ""), r.idx)):
 			r.paid_amount = flt(min(flt(r.amount), left), 3)
 			left = flt(left - r.paid_amount, 3)
