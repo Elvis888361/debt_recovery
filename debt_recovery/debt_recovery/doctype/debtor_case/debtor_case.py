@@ -7,7 +7,7 @@ from datetime import timedelta
 
 from frappe.utils import add_days, flt, get_fullname, getdate, nowdate
 
-from debt_recovery.utils import match_debtor, sees_all
+from debt_recovery.utils import clean_email, match_debtor, notice, sees_all
 
 DEBTOR_FIELDS = {"debtor_name": "debtor_name", "debtor_cpr": "cpr", "debtor_email": "email", "debtor_remark": "remarks"}
 
@@ -29,7 +29,7 @@ class DebtorCase(Document):
 			match = frappe.db.get_value("Recovery Client", typed)
 			if match:
 				self.client = match
-				frappe.msgprint(f"Matched client <b>{match}</b>", alert=True, indicator="green")
+				notice(f"Matched client <b>{match}</b>", "green")
 			elif not self.client:
 				pct = flt(frappe.db.get_single_value("Debt Recovery Settings", "default_commission_percent"))
 				new = frappe.get_doc(
@@ -37,7 +37,7 @@ class DebtorCase(Document):
 					 "commissions": [{"commission_name": "Standard", "commission_percent": pct}]}
 				).insert(ignore_permissions=True)
 				self.client = new.name
-				frappe.msgprint(f"No client named <b>{typed}</b> existed - created it with a Standard commission of {pct}%. Please review it.", alert=True, indicator="blue")
+				notice(f"No client named <b>{typed}</b> existed - created it with a Standard commission of {pct}%. Please review it.", "blue")
 		if self.client:
 			self.client_name = self.client
 
@@ -58,6 +58,7 @@ class DebtorCase(Document):
 
 	def sync_debtor(self):
 		"""Debtor is optional: typed details link (or create) the Debtor, and edits to name / CPR / email / remark flow back to it."""
+		self.debtor_email = clean_email(self.debtor_email)
 		vals = {f: (self.get(f) or "").strip() for f in DEBTOR_FIELDS}
 		name, cpr = vals["debtor_name"], vals["debtor_cpr"]
 		if not self.debtor:
@@ -76,12 +77,12 @@ class DebtorCase(Document):
 						{f: push[m] for f, m in DEBTOR_FIELDS.items() if m in push}, update_modified=False,
 					)
 				self.set_debtor_fields(deb, only_blank=False, keep=("debtor_cpr", "debtor_email", "debtor_remark"))
-				frappe.msgprint(f"Matched existing debtor <b>{existing}</b>", alert=True, indicator="green")
+				notice(f"Matched existing debtor <b>{existing}</b>", "green")
 			else:
 				self.debtor = frappe.get_doc(
 					{"doctype": "Debtor", "debtor_name": name, "cpr": cpr or None, "email": vals["debtor_email"] or None, "remarks": vals["debtor_remark"] or None}
 				).insert(ignore_permissions=True).name
-				frappe.msgprint(f"No existing debtor found - created <b>{self.debtor}</b>", alert=True, indicator="blue")
+				notice(f"No existing debtor found - created <b>{self.debtor}</b>", "blue")
 			return
 		deb = frappe.db.get_value("Debtor", self.debtor, list(DEBTOR_FIELDS.values()), as_dict=True)
 		if not name:  # picked a debtor and left the details blank (e.g. API/import): take them from the Debtor

@@ -275,8 +275,7 @@
    "fieldname": "debtor_email",
    "fieldtype": "Data",
    "label": "Debtor Email",
-   "options": "Email",
-   "description": "Saved to the Debtor record (or used to create it)."
+   "description": "Saved to the Debtor record (or used to create it). Invalid values such as N/A are ignored."
   },
   {
    "fieldname": "debtor_remark",

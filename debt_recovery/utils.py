@@ -23,3 +23,20 @@ def match_debtor(name, cpr=None):
 		cond = {"debtor_name": name} if not cpr else {"debtor_name": name, "cpr": ["in", ["", None]]}
 		existing = frappe.db.get_value("Debtor", cond)
 	return existing
+
+
+JUNK = {"n/a", "na", "n.a", "none", "null", "nil", "-", "--", ".", "no", "nill", "not available", "unknown"}
+
+
+def clean_email(value):
+	"""A usable email or "": placeholders like N/A and anything that is not a valid address are dropped, never an error."""
+	value = (value or "").strip()
+	if not value or value.lower() in JUNK:
+		return ""
+	return value if frappe.utils.validate_email_address(value) else ""
+
+
+def notice(message, indicator="green"):
+	"""Pop-up notice for a user saving a case; silent during Data Import so the import log only shows real errors."""
+	if not (frappe.flags.in_import or frappe.flags.in_migrate or frappe.flags.in_patch or frappe.flags.in_test):
+		frappe.msgprint(message, alert=True, indicator=indicator)
