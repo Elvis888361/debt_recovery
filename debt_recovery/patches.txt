@@ -5,4 +5,5 @@
 [post_model_sync]
 # Patches added in this section will be executed after doctypes are migrated
 debt_recovery.patches.add_default_commission_rows
+debt_recovery.patches.backfill_debtor_email_remark
 # debt_recovery.patches.link_debtors_and_clients   <- NOT enabled yet: see note in the patch file / ask before enabling

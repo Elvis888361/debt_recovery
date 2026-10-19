@@ -272,6 +272,19 @@
    "options": "Contract"
   },
   {
+   "fieldname": "debtor_email",
+   "fieldtype": "Data",
+   "label": "Debtor Email",
+   "options": "Email",
+   "description": "Saved to the Debtor record (or used to create it)."
+  },
+  {
+   "fieldname": "debtor_remark",
+   "fieldtype": "Small Text",
+   "label": "Debtor Remark",
+   "description": "Saved to the Debtor record's Remarks."
+  },
+  {
    "fieldname": "sec_other_contacts",
    "fieldtype": "Section Break",
    "label": "Other Contact Details"
@@ -730,6 +743,8 @@
   "debtor_type",
   "debtor_date",
   "contract",
+  "debtor_email",
+  "debtor_remark",
   "sec_other_contacts",
   "debtor_info",
   "tab_more",

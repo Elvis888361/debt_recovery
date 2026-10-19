@@ -7,7 +7,9 @@ from datetime import timedelta
 
 from frappe.utils import add_days, flt, get_fullname, getdate, nowdate
 
-from debt_recovery.utils import sees_all
+from debt_recovery.utils import match_debtor, sees_all
+
+DEBTOR_FIELDS = {"debtor_name": "debtor_name", "debtor_cpr": "cpr", "debtor_email": "email", "debtor_remark": "remarks"}
 
 
 class DebtorCase(Document):
@@ -55,34 +57,60 @@ class DebtorCase(Document):
 			self.commission_plan, self.commission_percent = rows[0].commission_name, rows[0].commission_percent
 
 	def sync_debtor(self):
-		"""Debtor is optional: a typed name links (or creates) the Debtor; edits to name/CPR flow back to it."""
-		name, cpr = (self.debtor_name or "").strip(), (self.debtor_cpr or "").strip()
+		"""Debtor is optional: typed details link (or create) the Debtor, and edits to name / CPR / email / remark flow back to it."""
+		vals = {f: (self.get(f) or "").strip() for f in DEBTOR_FIELDS}
+		name, cpr = vals["debtor_name"], vals["debtor_cpr"]
 		if not self.debtor:
 			if not name:
 				frappe.throw("Enter a Debtor, or type the Debtor Name")
-			existing = frappe.db.get_value("Debtor", {"cpr": cpr}) if cpr else None
-			if not existing:  # same name, and either no CPR was typed or the stored debtor has none yet
-				cond = {"debtor_name": name} if not cpr else {"debtor_name": name, "cpr": ["in", ["", None]]}
-				existing = frappe.db.get_value("Debtor", cond)
+			existing = match_debtor(name, cpr)
 			if existing:
 				self.debtor = existing
-				deb = frappe.db.get_value("Debtor", existing, ["debtor_name", "cpr"], as_dict=True)
-				if cpr and not deb.cpr:
-					frappe.db.set_value("Debtor", existing, "cpr", cpr)
-				self.debtor_name, self.debtor_cpr = deb.debtor_name, cpr or deb.cpr
+				deb = frappe.db.get_value("Debtor", existing, list(DEBTOR_FIELDS.values()), as_dict=True)
+				push = {m: vals[f] for f, m in DEBTOR_FIELDS.items() if f in ("debtor_cpr", "debtor_email", "debtor_remark") and vals[f] and vals[f] != (deb[m] or "")}
+				if push:
+					frappe.db.set_value("Debtor", existing, push)
+					deb.update(push)
+					frappe.db.set_value(
+						"Debtor Case", {"debtor": existing, "name": ["!=", self.name or ""]},
+						{f: push[m] for f, m in DEBTOR_FIELDS.items() if m in push}, update_modified=False,
+					)
+				self.set_debtor_fields(deb, only_blank=False, keep=("debtor_cpr", "debtor_email", "debtor_remark"))
 				frappe.msgprint(f"Matched existing debtor <b>{existing}</b>", alert=True, indicator="green")
 			else:
-				self.debtor = frappe.get_doc({"doctype": "Debtor", "debtor_name": name, "cpr": cpr or None}).insert(ignore_permissions=True).name
+				self.debtor = frappe.get_doc(
+					{"doctype": "Debtor", "debtor_name": name, "cpr": cpr or None, "email": vals["debtor_email"] or None, "remarks": vals["debtor_remark"] or None}
+				).insert(ignore_permissions=True).name
 				frappe.msgprint(f"No existing debtor found - created <b>{self.debtor}</b>", alert=True, indicator="blue")
 			return
-		deb = frappe.db.get_value("Debtor", self.debtor, ["debtor_name", "cpr"], as_dict=True)
-		if not name:  # picked a debtor and left the name blank (e.g. API/import): take it from the Debtor
-			self.debtor_name, self.debtor_cpr = deb.debtor_name, deb.cpr
+		deb = frappe.db.get_value("Debtor", self.debtor, list(DEBTOR_FIELDS.values()), as_dict=True)
+		if not name:  # picked a debtor and left the details blank (e.g. API/import): take them from the Debtor
+			self.set_debtor_fields(deb, only_blank=False)
 			return
-		edited = self.is_new() or ((self.has_value_changed("debtor_name") or self.has_value_changed("debtor_cpr")) and not self.has_value_changed("debtor"))
-		if edited and (name != (deb.debtor_name or "") or cpr != (deb.cpr or "")):
-			frappe.db.set_value("Debtor", self.debtor, {"debtor_name": name, "cpr": cpr or None})
-			frappe.db.set_value("Debtor Case", {"debtor": self.debtor, "name": ["!=", self.name]}, {"debtor_name": name, "debtor_cpr": cpr or None})
+		fresh = self.is_new() or self.has_value_changed("debtor")
+		changed = {}
+		for f, m in DEBTOR_FIELDS.items():
+			if fresh and not vals[f]:
+				continue  # nothing typed: show the debtor's own value (below)
+			if vals[f] != (deb[m] or "") and (fresh or self.has_value_changed(f)):
+				changed[m] = vals[f] or None
+		if changed and not self.has_value_changed("debtor") or (changed and self.is_new()):
+			frappe.db.set_value("Debtor", self.debtor, changed)
+			deb.update(changed)
+			frappe.db.set_value(
+				"Debtor Case", {"debtor": self.debtor, "name": ["!=", self.name or ""]},
+				{f: changed[m] for f, m in DEBTOR_FIELDS.items() if m in changed}, update_modified=False,
+			)
+		self.set_debtor_fields(deb, only_blank=True)
+
+	def set_debtor_fields(self, deb, only_blank=True, keep=()):
+		for f, m in DEBTOR_FIELDS.items():
+			if f in keep and (self.get(f) or "").strip():
+				continue
+			if not only_blank or not (self.get(f) or "").strip():
+				self.set(f, deb[m])
+		if not only_blank:
+			self.debtor_name = deb.debtor_name
 
 	def sync_latest_followup(self):
 		rows = sorted(self.followups, key=lambda r: str(r.followup_date or ""))
@@ -227,6 +255,9 @@ def save_debtor_details(debtor, values):
 	doc = frappe.get_doc("Debtor", debtor)
 	doc.update({k: v for k, v in values.items() if k in allowed})
 	doc.save()
+	# keep the copies shown on every case of this debtor in step
+	frappe.db.set_value("Debtor Case", {"debtor": debtor},
+		{"debtor_name": doc.debtor_name, "debtor_cpr": doc.cpr, "debtor_email": doc.email, "debtor_remark": doc.remarks}, update_modified=False)
 	return doc.as_dict()
 
 

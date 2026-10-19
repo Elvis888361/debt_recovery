@@ -106,9 +106,11 @@ frappe.ui.form.on("Debtor Case", {
 
 	debtor(frm) {
 		if (!frm.doc.debtor) return;
-		frappe.db.get_value("Debtor", frm.doc.debtor, ["debtor_name", "cpr"]).then((r) => {
+		frappe.db.get_value("Debtor", frm.doc.debtor, ["debtor_name", "cpr", "email", "remarks"]).then((r) => {
 			frm.set_value("debtor_name", r.message.debtor_name);
 			frm.set_value("debtor_cpr", r.message.cpr);
+			frm.set_value("debtor_email", r.message.email);
+			frm.set_value("debtor_remark", r.message.remarks);
 		});
 	},
 
