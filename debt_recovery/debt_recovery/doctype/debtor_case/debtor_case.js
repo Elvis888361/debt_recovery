@@ -204,6 +204,12 @@ frappe.ui.form.on("Debtor Case", {
 		log.addClass("dc-btn-log").html(`<svg class="icon icon-sm" style="margin-right:4px"><use href="#icon-small-file"></use></svg>${__("Log History")} <span class="dc-count">${frm.dc_log_count ?? ""}</span>`);
 		frm.add_custom_button(__("Payment History"), () => frm.trigger("goto_payments")).addClass("dc-btn-pay");
 
+		// Print Now: pick which letter to print
+		const PN = __("Print Now");
+		["Demand Notice", "Payment Reminder"].forEach((fmt) =>
+			frm.add_custom_button(__(fmt), () => frm.events.print_letter(frm, fmt), PN)
+		);
+
 		const A = __("Actions");
 		frm.add_custom_button(__("Add Follow-up / Remark"), () => frm.trigger("follow_dialog"), A);
 		frm.add_custom_button(__("Add Payment"), () => frm.trigger("payment_dialog"), A);
@@ -221,6 +227,12 @@ frappe.ui.form.on("Debtor Case", {
 			Object.assign(row, { debtor_case: frm.doc.name, debtor_name: frm.doc.debtor_name, available: frm.doc.payable_balance, amount: frm.doc.payable_balance });
 			frappe.set_route("Form", "Client Remittance", doc.name);
 		});
+	},
+
+	print_letter(frm, fmt) {
+		if (frm.is_dirty()) return frappe.msgprint(__("Save the case first so the letter shows the latest details."));
+		const url = `/printview?doctype=${encodeURIComponent(frm.doctype)}&name=${encodeURIComponent(frm.doc.name)}&format=${encodeURIComponent(fmt)}&no_letterhead=1&trigger_print=1`;
+		window.open(frappe.urllib.get_full_url(url), "_blank");
 	},
 
 	goto_payments(frm) {
