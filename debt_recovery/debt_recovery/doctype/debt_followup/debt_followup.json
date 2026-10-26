@@ -24,7 +24,7 @@
    "fieldname": "main_status",
    "fieldtype": "Select",
    "label": "Main Status",
-   "options": "\nUnder Follow Up\nPromise to Pay\nPartial Payment\nTracing Done 1\nTracing Done Without Information\nUnder Tracing\nPolice Case\nRefuse to Pay\nNo Answer\nWrong Number\nPaid in Full",
+   "options": "\nUnder Follow Up\nPromise to Pay\nPartial Payment\nTracing Done 1\nTracing Done Without Information\nUnder Tracing\nPolice Case\nRefuse to Pay\nNo Answer\nWrong Number\nPaid in Full\nCase Closed",
    "in_list_view": 1,
    "columns": 2
   },
