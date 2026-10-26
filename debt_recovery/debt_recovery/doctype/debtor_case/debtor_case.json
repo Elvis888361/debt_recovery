@@ -409,7 +409,7 @@
    "fieldname": "main_status",
    "fieldtype": "Select",
    "label": "Main Status",
-   "options": "\nUnder Follow Up\nPromise to Pay\nPartial Payment\nTracing Done 1\nTracing Done Without Information\nUnder Tracing\nPolice Case\nRefuse to Pay\nNo Answer\nWrong Number\nPaid in Full\nCase Closed\nOn Hold",
+   "options": "\nUnder Follow Up\nPromise to Pay\nPartial Payment\nTracing Done 1\nTracing Done Without Information\nUnder Tracing\nPolice Case\nRefuse to Pay\nNo Answer\nWrong Number\nPaid in Full\nCase Closed\nOn Hold\nDispute\nLegal",
    "in_standard_filter": 1
   },
   {

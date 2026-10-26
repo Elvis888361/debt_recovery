@@ -1,6 +1,6 @@
 const API = "debt_recovery.debt_recovery.doctype.debtor_case.debtor_case.";
 const STATUS_COLOR = { Open: "orange", "Under Tracing": "blue", "Promise to Pay": "yellow", "Payment Plan": "yellow", Settled: "green", "Returned to Client": "gray", Closed: "green" };
-const MAIN_STATUS = ["Under Follow Up", "Promise to Pay", "Partial Payment", "Tracing Done 1", "Tracing Done Without Information", "Under Tracing", "Police Case", "Refuse to Pay", "No Answer", "Wrong Number", "Paid in Full", "Case Closed", "On Hold"];
+const MAIN_STATUS = ["Under Follow Up", "Promise to Pay", "Partial Payment", "Tracing Done 1", "Tracing Done Without Information", "Under Tracing", "Police Case", "Refuse to Pay", "No Answer", "Wrong Number", "Paid in Full", "Case Closed", "On Hold", "Dispute", "Legal"];
 
 const CSS = `
 .dc-btn-log{background:#4f46e5!important;color:#fff!important;border:none!important}
