@@ -1,0 +1,18 @@
+{
+ "doctype": "Dashboard Chart",
+ "name": "Debt Commission by Client",
+ "chart_name": "Debt Commission by Client",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Debt Recovery",
+ "document_type": "Debtor Case",
+ "filters_json": "[]",
+ "use_report_chart": 0,
+ "show_values_over_chart": 0,
+ "chart_type": "Group By",
+ "group_by_type": "Sum",
+ "group_by_based_on": "client",
+ "aggregate_function_based_on": "commission_amount",
+ "type": "Pie",
+ "number_of_groups": 8
+}

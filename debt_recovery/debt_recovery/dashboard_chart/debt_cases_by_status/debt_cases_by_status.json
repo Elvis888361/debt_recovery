@@ -1,0 +1,17 @@
+{
+ "doctype": "Dashboard Chart",
+ "name": "Debt Cases by Status",
+ "chart_name": "Debt Cases by Status",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Debt Recovery",
+ "document_type": "Debtor Case",
+ "filters_json": "[]",
+ "use_report_chart": 0,
+ "show_values_over_chart": 0,
+ "chart_type": "Group By",
+ "group_by_type": "Count",
+ "group_by_based_on": "status",
+ "type": "Donut",
+ "number_of_groups": 0
+}

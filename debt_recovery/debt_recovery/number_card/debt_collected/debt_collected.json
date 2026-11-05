@@ -1,0 +1,15 @@
+{
+ "doctype": "Number Card",
+ "name": "Debt Collected",
+ "label": "Collected",
+ "document_type": "Debtor Case",
+ "function": "Sum",
+ "filters_json": "[]",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Debt Recovery",
+ "type": "Document Type",
+ "show_percentage_stats": 0,
+ "color": "#16a34a",
+ "aggregate_function_based_on": "debt_collected_amount"
+}

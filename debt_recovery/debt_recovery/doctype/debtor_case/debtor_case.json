@@ -1,0 +1,486 @@
+{
+ "doctype": "DocType",
+ "name": "Debtor Case",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "fields": [
+  {
+   "fieldname": "tab_details",
+   "fieldtype": "Tab Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "label": "Client (Creditor)",
+   "options": "Recovery Client",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "client_reference",
+   "fieldtype": "Data",
+   "label": "Client's Account / Reference No",
+   "in_standard_filter": 1,
+   "in_global_search": 1
+  },
+  {
+   "fieldname": "debtor_type",
+   "fieldtype": "Select",
+   "label": "Debtor Type",
+   "options": "Individual\nCompany",
+   "default": "Individual"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Case Status",
+   "options": "New\nContacted\nPromise to Pay\nPayment Plan\nPolice Case\nProsecution\nSettled\nReturned to Client\nClosed",
+   "default": "New",
+   "in_standard_filter": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "acquired_date",
+   "fieldtype": "Date",
+   "label": "Account Acquired On",
+   "reqd": 1,
+   "default": "Today",
+   "in_standard_filter": 1,
+   "in_list_view": 1,
+   "description": "Date the client gave us this account"
+  },
+  {
+   "fieldname": "assigned_to",
+   "fieldtype": "Link",
+   "label": "Assigned To",
+   "options": "Employee",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "next_followup_date",
+   "fieldtype": "Date",
+   "label": "Next Follow-up",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "registered_by",
+   "fieldtype": "Link",
+   "label": "Registered By",
+   "options": "User",
+   "default": "__user",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sec_debtor",
+   "fieldtype": "Section Break",
+   "label": "Debtor"
+  },
+  {
+   "fieldname": "debtor_name",
+   "fieldtype": "Data",
+   "label": "Debtor Name",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_global_search": 1
+  },
+  {
+   "fieldname": "debtor_status",
+   "fieldtype": "Select",
+   "label": "Debtor Status",
+   "options": "Alive\nDeceased\nUnknown",
+   "default": "Alive"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "debtor_cpr",
+   "fieldtype": "Data",
+   "label": "Debtor CPR / ID",
+   "in_standard_filter": 1,
+   "in_global_search": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "signature",
+   "fieldtype": "Signature",
+   "label": "Signatures"
+  },
+  {
+   "fieldname": "sec_police",
+   "fieldtype": "Section Break",
+   "label": "Police & Prosecution"
+  },
+  {
+   "fieldname": "has_police_case",
+   "fieldtype": "Check",
+   "label": "Police Case Filed",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "police_case_number",
+   "fieldtype": "Data",
+   "label": "Police Case Number",
+   "depends_on": "has_police_case",
+   "in_global_search": 1
+  },
+  {
+   "fieldname": "police_case_date",
+   "fieldtype": "Date",
+   "label": "Police Case Date",
+   "depends_on": "has_police_case"
+  },
+  {
+   "fieldname": "cb3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "police_station_name",
+   "fieldtype": "Data",
+   "label": "Police Station Name",
+   "depends_on": "has_police_case"
+  },
+  {
+   "fieldname": "prosecution_case_number",
+   "fieldtype": "Data",
+   "label": "Prosecution Case Number",
+   "depends_on": "has_police_case"
+  },
+  {
+   "fieldname": "police_case_abstract",
+   "fieldtype": "Attach",
+   "label": "Police Case Abstract",
+   "depends_on": "has_police_case",
+   "description": "Upload the police abstract / report"
+  },
+  {
+   "fieldname": "sec_invoices",
+   "fieldtype": "Section Break",
+   "label": "Invoices owed"
+  },
+  {
+   "fieldname": "invoices",
+   "fieldtype": "Table",
+   "label": "Invoices",
+   "options": "Debt Invoice"
+  },
+  {
+   "fieldname": "sec_amounts",
+   "fieldtype": "Section Break",
+   "label": "Debt"
+  },
+  {
+   "fieldname": "debt_total_amount",
+   "fieldtype": "Currency",
+   "label": "Debt Total Amount",
+   "read_only": 1,
+   "in_list_view": 1,
+   "description": "Sum of invoices"
+  },
+  {
+   "fieldname": "debt_adjustment_amount",
+   "fieldtype": "Currency",
+   "label": "Debt Adjustment Amount",
+   "default": "0",
+   "description": "Discount / write-off agreed with the client"
+  },
+  {
+   "fieldname": "cb4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "debt_collected_amount",
+   "fieldtype": "Currency",
+   "label": "Debt Collected Amount",
+   "read_only": 1,
+   "in_list_view": 1,
+   "description": "Sum of payments"
+  },
+  {
+   "fieldname": "debt_balance_amount",
+   "fieldtype": "Currency",
+   "label": "Debt Balance Amount",
+   "read_only": 1,
+   "in_list_view": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "sec_comm",
+   "fieldtype": "Section Break",
+   "label": "Our Commission & Client Payout"
+  },
+  {
+   "fieldname": "commission_percent",
+   "fieldtype": "Float",
+   "label": "Commission %",
+   "description": "Taken from the client's default; change here for a special deal"
+  },
+  {
+   "fieldname": "commission_amount",
+   "fieldtype": "Currency",
+   "label": "Our Commission",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "net_payable_to_client",
+   "fieldtype": "Currency",
+   "label": "Net Due to Client",
+   "read_only": 1,
+   "description": "Collected minus our commission"
+  },
+  {
+   "fieldname": "remitted_amount",
+   "fieldtype": "Currency",
+   "label": "Already Paid to Client",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "payable_balance",
+   "fieldtype": "Currency",
+   "label": "Still Owe Client",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "tab_followup",
+   "fieldtype": "Tab Break",
+   "label": "Follow-ups"
+  },
+  {
+   "fieldname": "followups",
+   "fieldtype": "Table",
+   "label": "Follow-ups",
+   "options": "Debt Followup"
+  },
+  {
+   "fieldname": "tab_payments",
+   "fieldtype": "Tab Break",
+   "label": "Payments"
+  },
+  {
+   "fieldname": "payments",
+   "fieldtype": "Table",
+   "label": "Payments from Debtor",
+   "options": "Debt Payment"
+  },
+  {
+   "fieldname": "tab_contact",
+   "fieldtype": "Tab Break",
+   "label": "Contact & Address"
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile No",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "cb6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Data",
+   "label": "Nationality"
+  },
+  {
+   "fieldname": "employer",
+   "fieldtype": "Data",
+   "label": "Employer"
+  },
+  {
+   "fieldname": "sec_addr",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City / Area"
+  },
+  {
+   "fieldname": "tab_notes",
+   "fieldtype": "Tab Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text Editor",
+   "label": "Case Notes"
+  }
+ ],
+ "field_order": [
+  "tab_details",
+  "client",
+  "client_reference",
+  "debtor_type",
+  "status",
+  "cb1",
+  "acquired_date",
+  "assigned_to",
+  "next_followup_date",
+  "registered_by",
+  "sec_debtor",
+  "debtor_name",
+  "debtor_status",
+  "cb2",
+  "debtor_cpr",
+  "signature",
+  "sec_police",
+  "has_police_case",
+  "police_case_number",
+  "police_case_date",
+  "cb3",
+  "police_station_name",
+  "prosecution_case_number",
+  "police_case_abstract",
+  "sec_invoices",
+  "invoices",
+  "sec_amounts",
+  "debt_total_amount",
+  "debt_adjustment_amount",
+  "cb4",
+  "debt_collected_amount",
+  "debt_balance_amount",
+  "sec_comm",
+  "commission_percent",
+  "commission_amount",
+  "cb5",
+  "net_payable_to_client",
+  "remitted_amount",
+  "payable_balance",
+  "tab_followup",
+  "followups",
+  "tab_payments",
+  "payments",
+  "tab_contact",
+  "mobile_no",
+  "phone",
+  "email",
+  "cb6",
+  "nationality",
+  "employer",
+  "sec_addr",
+  "address",
+  "city",
+  "tab_notes",
+  "notes"
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Debt Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "export": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Debt Officer",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "export": 0,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "if_owner": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "creation": "2026-10-15 00:00:00",
+ "modified": "2026-10-15 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "autoname": "CM-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "title_field": "debtor_name",
+ "search_fields": "debtor_name,debtor_cpr,police_case_number,client,client_reference",
+ "track_changes": 1,
+ "allow_import": 1,
+ "quick_entry": 0,
+ "show_title_field_in_link": 1
+}

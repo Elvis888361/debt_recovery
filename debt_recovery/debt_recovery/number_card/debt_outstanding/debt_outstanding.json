@@ -1,0 +1,15 @@
+{
+ "doctype": "Number Card",
+ "name": "Debt Outstanding",
+ "label": "Outstanding",
+ "document_type": "Debtor Case",
+ "function": "Sum",
+ "filters_json": "[[\"Debtor Case\", \"status\", \"not in\", [\"Closed\", \"Returned to Client\"]]]",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Debt Recovery",
+ "type": "Document Type",
+ "show_percentage_stats": 0,
+ "color": "#dc2626",
+ "aggregate_function_based_on": "debt_balance_amount"
+}

@@ -1,0 +1,78 @@
+{
+ "doctype": "DocType",
+ "name": "Debt Followup",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "fields": [
+  {
+   "fieldname": "followup_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1,
+   "default": "Today",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "method",
+   "fieldtype": "Select",
+   "label": "Method",
+   "options": "Phone Call\nWhatsApp\nSMS\nEmail\nVisit\nLetter\nOther",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "outcome",
+   "fieldtype": "Select",
+   "label": "Outcome",
+   "options": "No Answer\nSpoke to Debtor\nPromise to Pay\nRefused\nWrong Number\nPayment Received\nOther",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "promise_date",
+   "fieldtype": "Date",
+   "label": "Promised Date",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "promise_amount",
+   "fieldtype": "Currency",
+   "label": "Promised Amount",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "by",
+   "fieldtype": "Link",
+   "label": "By",
+   "options": "User",
+   "default": "__user"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "field_order": [
+  "followup_date",
+  "method",
+  "outcome",
+  "promise_date",
+  "promise_amount",
+  "by",
+  "remarks"
+ ],
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "creation": "2026-10-15 00:00:00",
+ "modified": "2026-10-15 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "istable": 1,
+ "editable_grid": 1
+}

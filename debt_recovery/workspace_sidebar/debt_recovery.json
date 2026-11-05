@@ -1,0 +1,128 @@
+{
+ "doctype": "Workspace Sidebar",
+ "name": "Debt Recovery",
+ "title": "Debt Recovery",
+ "app": "debt_recovery",
+ "module": "Debt Recovery",
+ "header_icon": "wallet",
+ "standard": 1,
+ "items": [
+  {
+   "type": "Link",
+   "label": "Home",
+   "link_to": "Debt Recovery",
+   "link_type": "Workspace",
+   "icon": "house",
+   "child": 0,
+   "indent": 0,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "show_arrow": 0
+  },
+  {
+   "type": "Link",
+   "label": "Dashboard",
+   "link_to": "Debt Recovery",
+   "link_type": "Dashboard",
+   "icon": "chart-column",
+   "child": 0,
+   "indent": 0,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "show_arrow": 0
+  },
+  {
+   "type": "Section Break",
+   "label": "Cases",
+   "icon": "users",
+   "child": 0,
+   "indent": 1,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "link_type": "DocType",
+   "show_arrow": 0
+  },
+  {
+   "type": "Link",
+   "label": "Creditors (Clients)",
+   "link_to": "Recovery Client",
+   "link_type": "DocType",
+   "icon": "building",
+   "child": 1,
+   "indent": 0,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "show_arrow": 0
+  },
+  {
+   "type": "Link",
+   "label": "Debtors",
+   "link_to": "Debtor Case",
+   "link_type": "DocType",
+   "icon": "users",
+   "child": 1,
+   "indent": 0,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "show_arrow": 0
+  },
+  {
+   "type": "Section Break",
+   "label": "Money",
+   "icon": "banknote",
+   "child": 0,
+   "indent": 1,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "link_type": "DocType",
+   "show_arrow": 0
+  },
+  {
+   "type": "Link",
+   "label": "Pay Clients",
+   "link_to": "Client Remittance",
+   "link_type": "DocType",
+   "icon": "banknote",
+   "child": 1,
+   "indent": 0,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "show_arrow": 0
+  },
+  {
+   "type": "Section Break",
+   "label": "Reports",
+   "icon": "table",
+   "child": 0,
+   "indent": 1,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "link_type": "DocType",
+   "show_arrow": 0
+  },
+  {
+   "type": "Link",
+   "label": "Debtor Report",
+   "link_to": "Debtor Case Report",
+   "link_type": "Report",
+   "icon": "table",
+   "child": 1,
+   "indent": 0,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "show_arrow": 0
+  },
+  {
+   "type": "Link",
+   "label": "Client Statement",
+   "link_to": "Client Statement",
+   "link_type": "Report",
+   "icon": "file-text",
+   "child": 1,
+   "indent": 0,
+   "collapsible": 1,
+   "keep_closed": 0,
+   "show_arrow": 0
+  }
+ ]
+}

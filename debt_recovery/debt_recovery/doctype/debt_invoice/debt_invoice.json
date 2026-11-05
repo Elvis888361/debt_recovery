@@ -1,0 +1,54 @@
+{
+ "doctype": "DocType",
+ "name": "Debt Invoice",
+ "module": "Debt Recovery",
+ "engine": "InnoDB",
+ "custom": 0,
+ "fields": [
+  {
+   "fieldname": "invoice_number",
+   "fieldtype": "Data",
+   "label": "Invoice Number",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "invoice_date",
+   "fieldtype": "Date",
+   "label": "Invoice Date",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description",
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  }
+ ],
+ "field_order": [
+  "invoice_number",
+  "invoice_date",
+  "description",
+  "amount"
+ ],
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "creation": "2026-10-15 00:00:00",
+ "modified": "2026-10-15 00:00:00",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "istable": 1,
+ "editable_grid": 1
+}
