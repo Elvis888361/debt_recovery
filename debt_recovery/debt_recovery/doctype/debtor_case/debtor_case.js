@@ -206,7 +206,7 @@ frappe.ui.form.on("Debtor Case", {
 
 		// Print Now: pick which letter to print
 		const PN = __("Print Now");
-		["Demand Notice", "Payment Reminder"].forEach((fmt) =>
+		["Demand Notice", "Payment Reminder", "Invitation Letter", "Current Amount"].forEach((fmt) =>
 			frm.add_custom_button(__(fmt), () => frm.events.print_letter(frm, fmt), PN)
 		);
 
